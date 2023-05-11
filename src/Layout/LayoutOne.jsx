@@ -4,11 +4,11 @@ import { Outlet } from 'react-router-dom';
 
 const LayoutOne = () => {
     return (
-        <>
+        <div className='my-container'>
             <Nav></Nav>   
             <Outlet></Outlet>
             <Footer></Footer>
-        </>
+        </div>
     );
 };
 

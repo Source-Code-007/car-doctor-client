@@ -5,11 +5,11 @@ import bannerFour from "../../assets/images/banner/4.jpg";
 
 const Banner = () => {
     return (
-        <div className="carousel w-full h-[calc(100vh-60px)]">
+        <div className="carousel w-full h-[calc(100vh-85px)] my-5">
             <div id="slide1" className="carousel-item relative w-full">
                 <div className="relative h-full w-full">
-                    <img src={bannerOne} className="h-full w-full" />
-                    <div className="absolute top-0 left-0 bg-gradient-to-r from-[#151515] to-[rgba(21, 21, 21, 0) 100%)] h-full w-full ">
+                    <img src={bannerOne} className="h-full w-full rounded-lg" />
+                    <div className="absolute top-0 left-0 rounded-lg bg-gradient-to-r from-[#151515] to-[rgba(21, 21, 21, 0) 100%)] h-full w-full ">
                         <div className="absolute top-1/2 -translate-y-1/2 left-0 px-8 text-white space-y-3 w-6/6 md:w-4/6 lg:w-2/6">
                             <h2 className="font-bold text-6xl">Affordable Price For Car Servicing</h2>
                             <p className="text-gray-300">There are many variations of passages of  available, but the majority have suffered alteration in some form</p>
@@ -25,8 +25,8 @@ const Banner = () => {
             </div>
             <div id="slide2" className="carousel-item relative w-full">
             <div className="relative h-full w-full">
-                    <img src={bannerTwo} className="h-full w-full" />
-                    <div className="absolute top-0 left-0 bg-gradient-to-r from-[#151515] to-[rgba(21, 21, 21, 0) 100%)] h-full w-full ">
+                    <img src={bannerTwo} className="h-full w-full rounded-lg" />
+                    <div className="absolute top-0 left-0 rounded-lg bg-gradient-to-r from-[#151515] to-[rgba(21, 21, 21, 0) 100%)] h-full w-full ">
                         <div className="absolute top-1/2 -translate-y-1/2 left-0 px-8 text-white space-y-3 w-6/6 md:w-4/6 lg:w-2/6">
                             <h2 className="font-bold text-6xl">Affordable Price For Car Servicing</h2>
                             <p className="text-gray-300">There are many variations of passages of  available, but the majority have suffered alteration in some form</p>
@@ -42,8 +42,8 @@ const Banner = () => {
             </div>
             <div id="slide3" className="carousel-item relative w-full">
             <div className="relative h-full w-full">
-                    <img src={bannerThree} className="h-full w-full" />
-                    <div className="absolute top-0 left-0 bg-gradient-to-r from-[#151515] to-[rgba(21, 21, 21, 0) 100%)] h-full w-full ">
+                    <img src={bannerThree} className="h-full w-full rounded-lg" />
+                    <div className="absolute top-0 left-0 rounded-lg bg-gradient-to-r from-[#151515] to-[rgba(21, 21, 21, 0) 100%)] h-full w-full ">
                         <div className="absolute top-1/2 -translate-y-1/2 left-0 px-8 text-white space-y-3 w-6/6 md:w-4/6 lg:w-2/6">
                             <h2 className="font-bold text-6xl">Affordable Price For Car Servicing</h2>
                             <p className="text-gray-300">There are many variations of passages of  available, but the majority have suffered alteration in some form</p>
@@ -58,9 +58,9 @@ const Banner = () => {
                 </div>
             </div>
             <div id="slide4" className="carousel-item relative w-full">
-            <div className="relative h-full w-full">
+            <div className="relative h-full w-full rounded-lg">
                     <img src={bannerFour} className="h-full w-full" />
-                    <div className="absolute top-0 left-0 bg-gradient-to-r from-[#151515] to-[rgba(21, 21, 21, 0) 100%)] h-full w-full ">
+                    <div className="absolute top-0 left-0 rounded-lg bg-gradient-to-r from-[#151515] to-[rgba(21, 21, 21, 0) 100%)] h-full w-full ">
                         <div className="absolute top-1/2 -translate-y-1/2 left-0 px-8 text-white space-y-3 w-6/6 md:w-4/6 lg:w-2/6">
                             <h2 className="font-bold text-6xl">Affordable Price For Car Servicing</h2>
                             <p className="text-gray-300">There are many variations of passages of  available, but the majority have suffered alteration in some form</p>
