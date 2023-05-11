@@ -6,3 +6,7 @@
 .my-container{
     @apply max-w-7xl mx-6 lg:mx-auto
 }
+button{
+    font-weight: bold !important;
+    color: #fff !important;
+}
