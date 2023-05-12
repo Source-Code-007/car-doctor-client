@@ -5,6 +5,7 @@ import Signin from "../Pages/Signin/Signin";
 import Signup from "../Pages/Signup/Signup";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Checkout from "../Pages/Checkout/Checkout";
+import MyOrder from "../Pages/MyOrder/MyOrder";
 
 export const router = createBrowserRouter([
     {
@@ -28,7 +29,10 @@ export const router = createBrowserRouter([
                 path: `/checkout/:id`,
                 element: <Checkout></Checkout>,
                 loader: ({params}) => fetch(`http://localhost:8000/services/${params.id}`)
-
+            },
+            {
+                path: `/my-order`,
+                element: <MyOrder></MyOrder>
             }
         ]
     }

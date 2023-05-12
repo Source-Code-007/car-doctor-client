@@ -55,7 +55,7 @@ const Nav = () => {
                 wrapperClass=""
                 visible={true}
               /> :
-                 user ? <><img src={user?.photoURL} className="h-10 w-10 rounded-full" alt="" /> <button onClick={handleSignOutFunc} className="btn btn-info">Signout</button> </> : <Link to={'/signin'}> <button className="btn btn-info">Signin</button> </Link>
+                 user ? <> <img src={user?.photoURL} className="h-10 w-10 rounded-full" alt="" /> <Link to='/my-order'> <button className="btn btn-error">my order</button> </Link>  <button onClick={handleSignOutFunc} className="btn btn-info">Signout</button> </> : <Link to={'/signin'}> <button className="btn btn-info">Signin</button> </Link>
                 }
                 {/* <button className="btn btn-outline btn-error">Appointment</button> */}
             </div>
