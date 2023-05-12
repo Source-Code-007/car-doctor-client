@@ -1,5 +1,6 @@
 import { FaCartPlus, FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import logo from '../assets/logo.svg'
 
 const Nav = () => {
     const navItem = <>
@@ -20,7 +21,7 @@ const Nav = () => {
                         {navItem}
                     </ul>
                 </div>
-                <a className="btn btn-ghost normal-case text-xl">Car Doctor</a>
+                <Link to={'/'}><img src={logo} className="w-20" alt="" /></Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
