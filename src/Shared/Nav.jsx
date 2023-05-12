@@ -1,14 +1,23 @@
 import { FaCartPlus, FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import logo from '../assets/logo.svg'
+import { useContext } from "react";
+import { authContext } from "../Provider/AuthProvider";
+import { Circles } from 'react-loader-spinner'
 
 const Nav = () => {
+    const { user, setUser, logout, loading } = useContext(authContext)
+
+    // handle signout function
+    const handleSignOutFunc = () => {
+        logout(() => setUser(''))
+    }
+
     const navItem = <>
         <li className="font-bold"><Link to={'/'}>Home</Link></li>
         <li className="font-bold"><Link to={'/about'}>About</Link></li>
         <li className="font-bold"><Link>Services</Link></li>
         <li className="font-bold"><Link>Blog</Link></li>
-        <li className="font-bold"><Link>Contact</Link></li>
     </>
     return (
         <nav className="navbar shadow">
@@ -31,7 +40,19 @@ const Nav = () => {
             <div className="navbar-end gap-3">
                 <span><FaCartPlus></FaCartPlus></span>
                 <span><FaSearch></FaSearch></span>
-                <button className="btn btn-outline btn-error">Appointment</button>
+                {
+                loading ? <Circles
+                height="50"
+                width="50"
+                color="#4fa94d"
+                ariaLabel="circles-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+                visible={true}
+              /> :
+                 user ? <><img src={user?.photoURL} className="h-10 w-10 rounded-full" alt="" /> <button onClick={handleSignOutFunc} className="btn btn-info">Signout</button> </> : <Link to={'/signin'}> <button className="btn btn-info">Signin</button> </Link>
+                }
+                {/* <button className="btn btn-outline btn-error">Appointment</button> */}
             </div>
         </nav>
     );
