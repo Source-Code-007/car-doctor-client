@@ -3,11 +3,13 @@ import LayoutOne from "../Layout/LayoutOne";
 import Homepage from "../Homepage/Homepage";
 import Signin from "../Pages/Signin/Signin";
 import Signup from "../Pages/Signup/Signup";
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 
 export const router = createBrowserRouter([
     {
         path: '/',
         element: <LayoutOne></LayoutOne>,
+        errorElement: <ErrorPage></ErrorPage>,
         children: [
             {
                 path: '/',
