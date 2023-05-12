@@ -31,6 +31,7 @@ const AuthProvider = ({ children }) => {
 
     // logout func
     const logout = ()=>{
+        setLoading(true)
         return signOut(auth)
     }
 
@@ -52,6 +53,7 @@ const AuthProvider = ({ children }) => {
         user,
         setUser,
         loading,
+        setLoading,
         createUserWithEmailPassFunc,
         updateProfileFunc,
         signingUserWithEmailPassFunc,

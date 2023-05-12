@@ -10,7 +10,12 @@ const Nav = () => {
 
     // handle signout function
     const handleSignOutFunc = () => {
-        logout(() => setUser(''))
+        logout()
+        .then(() => {
+            setUser(null)
+            console.log('logout');
+        })
+        .catch(e=> console.log(e.message))
     }
 
     const navItem = <>

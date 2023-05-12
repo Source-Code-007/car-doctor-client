@@ -5,7 +5,7 @@ import { useContext, useState } from 'react';
 import { authContext } from '../../Provider/AuthProvider';
 
 const Signin = () => {
-    const { setUser, signingUserWithEmailPassFunc, } = useContext(authContext)
+    const { setUser, setLoading, signingUserWithEmailPassFunc, } = useContext(authContext)
     const [error, setError] = useState('')
     const [success, setSuccess] = useState('')
 
@@ -39,7 +39,10 @@ const Signin = () => {
             setUser(currUser)
             setSuccess('user signin successfully')
         })
-        .catch(e=> setError(e.message))
+        .catch(e=> {
+            setLoading(false)
+            setError(e.message)
+        })
     }
 
     return (

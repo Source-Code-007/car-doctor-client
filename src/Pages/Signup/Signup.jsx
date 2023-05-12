@@ -5,7 +5,7 @@ import { useContext, useState } from 'react';
 import { authContext } from '../../Provider/AuthProvider';
 
 const Signup = () => {
-    const { logout, createUserWithEmailPassFunc, updateProfileFunc } = useContext(authContext)
+    const { logout, setLoading, setUser, createUserWithEmailPassFunc, updateProfileFunc } = useContext(authContext)
     const [error, setError] = useState('')
     const [success, setSuccess] = useState('')
 
@@ -47,9 +47,12 @@ const Signup = () => {
                 updateProfileFunc(currUser, name, photo)
                     .then(() => { })
                     .catch(e => console.log(e.message))
-                    logout().then({})
+                    logout().then(setUser(null))
             })
-            .catch(e => setError(e.message))
+            .catch(e => {
+                setLoading(false)
+                setError(e.message)
+            })
     }
     return (
         <div className="hero min-h-screen">
