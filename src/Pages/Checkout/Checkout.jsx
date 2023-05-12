@@ -22,7 +22,7 @@ const Checkout = () => {
         const date = form.date.value
         const message = form.message.value
         const email = user?.email
-        const order = { customerName: firstName + lastName, serviceId: _id, phone, date, message, email, img, price, title}
+        const order = { customerName: `${firstName} ${lastName}`, serviceId: _id, phone, date, message, email, img, price, title}
 
         fetch('http://localhost:8000/booking', {
             method: 'POST',

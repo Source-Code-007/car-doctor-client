@@ -4,16 +4,13 @@ import { authContext } from '../Provider/AuthProvider';
 import { Navigate, useLocation } from 'react-router-dom';
 
 
-const PrivateRoute = () => {
+const PrivateRoute = ({children}) => {
     const {user, loading} = useContext(authContext)
     const {pathname} = useLocation()
 
-    if(!user){
-        return <Navigate to={'/signin'} state={pathname}></Navigate>
-    }
 
     if (loading) {
-        return <div className="min-h-screen flex justify-center items-center">
+        return <div className="h-[calc(100vh-70px)] flex justify-center items-center">
             <Circles
                 height="50"
                 width="50"
@@ -24,6 +21,9 @@ const PrivateRoute = () => {
                 visible={true}
             />
         </div>
+    }
+    if(!user){
+        return <Navigate to={'/signin'} state={pathname} replace></Navigate>
     }
     return children
 };
