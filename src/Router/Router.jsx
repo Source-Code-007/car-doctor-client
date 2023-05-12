@@ -6,6 +6,7 @@ import Signup from "../Pages/Signup/Signup";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Checkout from "../Pages/Checkout/Checkout";
 import MyOrder from "../Pages/MyOrder/MyOrder";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 export const router = createBrowserRouter([
     {
@@ -32,7 +33,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: `/my-order`,
-                element: <MyOrder></MyOrder>
+                element: <PrivateRoute><MyOrder></MyOrder></PrivateRoute>
             }
         ]
     }

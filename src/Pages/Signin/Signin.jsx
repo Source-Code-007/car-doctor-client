@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import signinImg from '../../assets/images/login/login.svg'
 import { FaFacebook, FaGithub, FaGoogle } from 'react-icons/fa';
 import { useContext, useState } from 'react';
@@ -8,6 +8,9 @@ const Signin = () => {
     const { setUser, setLoading, signingUserWithEmailPassFunc, } = useContext(authContext)
     const [error, setError] = useState('')
     const [success, setSuccess] = useState('')
+    const location = useLocation()
+    const navigate = useNavigate()
+    const from = location.state?.pathname || '/'
 
     const handleSigninFunc = (e) => {
         e.preventDefault()
@@ -38,6 +41,7 @@ const Signin = () => {
             const currUser = res.user
             setUser(currUser)
             setSuccess('user signin successfully')
+            navigate(from)
         })
         .catch(e=> {
             setLoading(false)
