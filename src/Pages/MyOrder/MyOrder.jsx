@@ -2,8 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { authContext } from "../../Provider/AuthProvider";
 import CompoBanner from "../../Shared/CompoBanner";
 import { FaTrash } from "react-icons/fa";
-import { ToastContainer, toast } from 'react-toastify';
-
+import { Circles } from 'react-loader-spinner'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 
@@ -12,12 +11,17 @@ import 'sweetalert2/src/sweetalert2.scss'
 const MyOrder = () => {
     const [order, setOrder] = useState([])
     const { user } = useContext(authContext)
+    const [loading, setLoading]  = useState(true)
+
 
     useEffect(() => {
         fetch(`http://localhost:8000/booking?email=${user?.email}`)
             .then(res => res.json())
-            .then(data => setOrder(data))
-    }, [])
+            .then(data => {
+                setOrder(data)
+                setLoading(false)
+            })
+    }, [user?.email])
 
 
     // order remove function
@@ -33,29 +37,54 @@ const MyOrder = () => {
         }).then((result) => {
             if (result.isConfirmed) {
                 fetch(`http://localhost:8000/booking/${id}`, { method: 'DELETE' })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.deletedCount) {
-                        const restOrder = order.filter(ord => ord._id != id)
-                        setOrder(restOrder)
-                        Swal.fire(
-                            'Deleted!',
-                            'Your file has been deleted.',
-                            'success'
-                        )
-                    }
-                })
-                .catch(e => console.log(e.message))
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.deletedCount) {
+                            const restOrder = order.filter(ord => ord._id != id)
+                            setOrder(restOrder)
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                        }
+                    })
+                    .catch(e => console.log(e.message))
             }
         })
-        
+
     }
+
+    // confirm func
+    const confirmFunc = (id)=>{
+        fetch(`http://localhost:8000/booking/${id}`, {
+            method: 'PATCH', 
+            headers:{
+                'content-type' : 'application/json',
+                'Access-Control-Allow-Methods' : true
+
+            },
+            body: JSON.stringify({status: 'confirm'})
+        })
+        .then(res=> res.json())
+        .then(data=> console.log(data))
+        .catch(e=> console.log(e.message))
+    }
+
 
     return (
         <div>
             <CompoBanner>My Order</CompoBanner>
             {
-                order.length ? <div className="overflow-x-auto w-full py-6">
+              loading? <div className="py-12 flex justify-center"><Circles
+              height="50"
+              width="50"
+              color="#4fa94d"
+              ariaLabel="circles-loading"
+              wrapperStyle={{}}
+              wrapperClass=""
+              visible={true}
+            /></div> : order.length ? <div className="overflow-x-auto w-full py-6 min-h-[75vh]">
                     <table className="table w-full">
                         {/* head */}
                         <thead>
@@ -94,7 +123,7 @@ const MyOrder = () => {
                                         </td>
                                         <td className="font-bold">{date}</td>
                                         <th>
-                                            <button className="btn btn-error">details</button>
+                                            <button onClick={() => confirmFunc(_id)} className="btn btn-error">confirm</button>
                                         </th>
                                     </tr>
                                 })
@@ -104,20 +133,6 @@ const MyOrder = () => {
                     </table>
                 </div> : <h2 className="font-bold text-3xl text-center py-10">There is no cart item!</h2>
             }
-            <ToastContainer
-                position="top-right"
-                autoClose={2000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-            />
-            {/* Same as */}
-            <ToastContainer />
         </div>
     );
 };
