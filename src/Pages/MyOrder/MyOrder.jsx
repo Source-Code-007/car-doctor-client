@@ -67,7 +67,14 @@ const MyOrder = () => {
             body: JSON.stringify({status: 'confirm'})
         })
         .then(res=> res.json())
-        .then(data=> console.log(data))
+        .then(data=> {
+            if(data.modifiedCount){
+                const remaining = order.filter(ord=> ord._id !== id)
+                const updated = order.find(ord=> ord._id === id)
+                updated.status = true
+                setOrder([updated, ...remaining])
+            }
+        })
         .catch(e=> console.log(e.message))
     }
 
@@ -100,7 +107,7 @@ const MyOrder = () => {
                             {/* row 1 */}
                             {
                                 order.map(ord => {
-                                    const { _id, img, customerName, title, price, date } = ord
+                                    const { _id, img, customerName, title, price, date, status } = ord
                                     return <tr key={_id}>
                                         <th>
                                             <span onClick={() => handleRemoveOrderFunc(_id)} className="text-red-500 cursor-pointer"> <FaTrash></FaTrash> </span>
@@ -123,7 +130,9 @@ const MyOrder = () => {
                                         </td>
                                         <td className="font-bold">{date}</td>
                                         <th>
-                                            <button onClick={() => confirmFunc(_id)} className="btn btn-error">confirm</button>
+                                            {
+                                                status ? <button className="btn btn-error" disabled>confirmed</button> : <button onClick={() => confirmFunc(_id)} className="btn btn-error">confirm</button>
+                                            }
                                         </th>
                                     </tr>
                                 })

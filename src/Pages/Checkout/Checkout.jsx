@@ -66,7 +66,7 @@ const Checkout = () => {
                     </div>
                     <div className="flex gap-3">
                         <textarea name="message" placeholder="Your message" className="w-full input h-40"></textarea>
-                    </div>
+                    </div>   
                     <button type="submit" className="btn btn-error text-white w-full">Order Confirm</button>
                 </form>
             </div>
