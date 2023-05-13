@@ -52,7 +52,10 @@ const AuthProvider = ({ children }) => {
                 // console.log(currUser);
                 fetch('http://localhost:8000/jwt', option)
                 .then(res=> res.json())
-                .then(data=> console.log(data))
+                .then(data=> {
+                    console.log(data.token);
+                    localStorage.setItem('car-doctor-jwt', data.token)
+                })
                 .catch(e => console.log(e.message))
             }
         })
