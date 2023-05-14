@@ -34,11 +34,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: `/my-order`,
-                element: <PrivateRoute><MyOrder></MyOrder></PrivateRoute>
+                element: <MyOrder></MyOrder>
             },
             {
                 path: 'services/:id',
-                element: <ServicesDetails></ServicesDetails>,
+                element: <PrivateRoute><ServicesDetails></ServicesDetails></PrivateRoute>,
             }
         ]
     }

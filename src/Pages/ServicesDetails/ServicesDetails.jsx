@@ -54,7 +54,7 @@ const ServicesDetails = () => {
                             {
                                 allServices.map((service, ind) => {
                                     const { _id, title } = service
-                                    return <NavLink key={ind} className={({ isActive, isPending }) => `block p-5 rounded ${isActive ? `bg-red-500 text-white` : 'border border-red-500 text-black bg-slate-50'}`} to={`/services/${_id}`}><button className="w-full flex justify-between"> <span>{title}</span> <FaArrowRight></FaArrowRight></button></NavLink>
+                                    return <NavLink key={ind} className={({ isActive }) => `block p-5 rounded ${isActive ? `bg-red-500 text-white` : 'border border-red-500 text-black bg-slate-50'}`} to={`/services/${_id}`}><button className="w-full flex justify-between"> <span>{title}</span> <FaArrowRight></FaArrowRight></button></NavLink>
                                 })
                             }
                         </div>

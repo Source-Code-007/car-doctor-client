@@ -6,8 +6,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 
 const PrivateRoute = ({children}) => {
     const {user, loading} = useContext(authContext)
-    const {pathname} = useLocation()
-
+    const location = useLocation()
 
     if (loading) {
         return <div className="h-[calc(100vh-70px)] flex justify-center items-center">
@@ -23,7 +22,7 @@ const PrivateRoute = ({children}) => {
         </div>
     }
     if(!user){
-        return <Navigate to={'/signin'} state={pathname} replace></Navigate>
+        return <Navigate to={'/signin'} state={location} replace></Navigate>
     }
     return children
 };
