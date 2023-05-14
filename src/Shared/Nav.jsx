@@ -13,7 +13,7 @@ const Nav = () => {
         logout()
         .then(() => {
             setUser(null)
-            console.log('logout');
+            // console.log('logout');
         })
         .catch(e=> console.log(e.message))
     }

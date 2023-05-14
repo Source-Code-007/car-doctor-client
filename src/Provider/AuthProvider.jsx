@@ -57,6 +57,8 @@ const AuthProvider = ({ children }) => {
                     localStorage.setItem('car-doctor-jwt', data.token)
                 })
                 .catch(e => console.log(e.message))
+            } else{
+                localStorage.removeItem('car-doctor-jwt')
             }
         })
         return ()=>{
