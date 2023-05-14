@@ -11,18 +11,24 @@ import 'sweetalert2/src/sweetalert2.scss'
 const MyOrder = () => {
     const [order, setOrder] = useState([])
     const { user } = useContext(authContext)
-    const [loading, setLoading]  = useState(true)
+    const [loading, setLoading] = useState(true)
 
 
+    // console.log(localStorage.getItem('car-doctor-jwt'))
     useEffect(() => {
-        fetch(`http://localhost:8000/booking?email=${user?.email}`)
-            .then(res => res.json())
-            .then(data => {
-                setOrder(data)
-                setLoading(false)
+        if (user?.email) {
+            fetch(`http://localhost:8000/booking?email=${user?.email}`, {
+                headers: {
+                    authorization: localStorage.getItem('car-doctor-jwt')
+                }
             })
-    }, [user?.email])
-
+                .then(res => res.json())
+                .then(data => {
+                    setOrder(data)
+                    setLoading(false)
+                })
+        }
+    }, [user])
 
     // order remove function
     const handleRemoveOrderFunc = (id) => {
@@ -36,7 +42,7 @@ const MyOrder = () => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:8000/booking/${id}`, { method: 'DELETE' })
+                fetch(`http://localhost:8000/booking/${id}`, { method: 'DELETE', })
                     .then(res => res.json())
                     .then(data => {
                         if (data.deletedCount) {
@@ -56,42 +62,43 @@ const MyOrder = () => {
     }
 
     // confirm func
-    const confirmFunc = (id)=>{
+    const confirmFunc = (id) => {
         fetch(`http://localhost:8000/booking/${id}`, {
-            method: 'PATCH', 
-            headers:{
-                'content-type' : 'application/json',
-                'Access-Control-Allow-Methods' : true
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json',
+                'Access-Control-Allow-Methods': true
 
             },
-            body: JSON.stringify({status: 'confirm'})
+            body: JSON.stringify({ status: 'confirm' })
         })
-        .then(res=> res.json())
-        .then(data=> {
-            if(data.modifiedCount){
-                const remaining = order.filter(ord=> ord._id !== id)
-                const updated = order.find(ord=> ord._id === id)
-                updated.status = true
-                setOrder([updated, ...remaining])
-            }
-        })
-        .catch(e=> console.log(e.message))
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount) {
+                    const remaining = order.filter(ord => ord._id !== id)
+                    const updated = order.find(ord => ord._id === id)
+                    updated.status = true
+                    setOrder([updated, ...remaining])
+                }
+            })
+            .catch(e => console.log(e.message))
     }
+
 
 
     return (
         <div>
             <CompoBanner>My Order</CompoBanner>
             {
-              loading? <div className="py-12 flex justify-center"><Circles
-              height="50"
-              width="50"
-              color="#4fa94d"
-              ariaLabel="circles-loading"
-              wrapperStyle={{}}
-              wrapperClass=""
-              visible={true}
-            /></div> : order.length ? <div className="overflow-x-auto w-full py-6 min-h-[75vh]">
+                loading ? <div className="py-12 flex justify-center"><Circles
+                    height="50"
+                    width="50"
+                    color="#4fa94d"
+                    ariaLabel="circles-loading"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    visible={true}
+                /></div> : !order.length ? <h2 className="font-bold text-3xl text-center py-10">There is no cart item!</h2> : <div className="overflow-x-auto w-full py-6 min-h-[75vh]">
                     <table className="table w-full">
                         {/* head */}
                         <thead>
@@ -140,7 +147,7 @@ const MyOrder = () => {
                         </tbody>
 
                     </table>
-                </div> : <h2 className="font-bold text-3xl text-center py-10">There is no cart item!</h2>
+                </div>
             }
         </div>
     );

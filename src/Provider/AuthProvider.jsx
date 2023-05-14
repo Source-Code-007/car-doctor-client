@@ -17,8 +17,8 @@ const AuthProvider = ({ children }) => {
     }
 
     // user update
-    const updateProfileFunc = (currUser, name, photo)=>{
-        return updateProfile(currUser,{
+    const updateProfileFunc = (currUser, name, photo) => {
+        return updateProfile(currUser, {
             displayName: name, photoURL: photo
         })
     }
@@ -30,41 +30,42 @@ const AuthProvider = ({ children }) => {
     }
 
     // logout func
-    const logout = ()=>{
+    const logout = () => {
         setLoading(true)
         return signOut(auth)
     }
 
 
-    useEffect(()=>{
-        const unsubscribe = onAuthStateChanged(auth, currUser=>{
-            setUser(currUser)
-            setLoading(false)
-            if(currUser){
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, currUser => {
+            if (currUser) {
+                setUser(currUser)
+                setLoading(false)
                 const option = {
-                    method : 'POST',
+                    method: 'POST',
                     headers: {
-                        'content-type' : 'application/json'
+                        'content-type': 'application/json'
                     },
-                    body: JSON.stringify({email: currUser.email})
-
+                    body: JSON.stringify({ email: currUser.email })
                 }
-                // console.log(currUser);
                 fetch('http://localhost:8000/jwt', option)
-                .then(res=> res.json())
-                .then(data=> {
-                    console.log(data.token);
-                    localStorage.setItem('car-doctor-jwt', data.token)
-                })
-                .catch(e => console.log(e.message))
-            } else{
+                    .then(res => res.json())
+                    .then(data => {
+                        localStorage.setItem('car-doctor-jwt', data.token)
+                        // setUser(currUser)
+                        // setLoading(false)
+                    })
+                    .catch(e => console.log(e.message))
+            } else {
                 localStorage.removeItem('car-doctor-jwt')
+                // setUser(currUser)
+                // setLoading(false)
             }
         })
-        return ()=>{
+        return () => {
             unsubscribe()
         }
-    },[])
+    }, [])
 
 
     const sharedObj = {
