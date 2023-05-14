@@ -7,6 +7,7 @@ import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Checkout from "../Pages/Checkout/Checkout";
 import MyOrder from "../Pages/MyOrder/MyOrder";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import ServicesDetails from "../Pages/ServicesDetails/ServicesDetails";
 
 export const router = createBrowserRouter([
     {
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
             {
                 path: `/my-order`,
                 element: <PrivateRoute><MyOrder></MyOrder></PrivateRoute>
+            },
+            {
+                path: 'services/:id',
+                element: <ServicesDetails></ServicesDetails>,
             }
         ]
     }
