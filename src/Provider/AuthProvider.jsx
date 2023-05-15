@@ -1,10 +1,12 @@
 import { createContext, useEffect, useState } from "react";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile, GoogleAuthProvider, GithubAuthProvider, signInWithPopup } from "firebase/auth";
 import { app } from "../firebase.config";
 
 export const authContext = createContext(null)
 
 const auth = getAuth(app);
+const googleProvider = new GoogleAuthProvider()
+const githubProvider = new GithubAuthProvider()
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
@@ -29,6 +31,17 @@ const AuthProvider = ({ children }) => {
         return signInWithEmailAndPassword(auth, email, password)
     }
 
+    //signin user with google
+    const signinWithGoogleFunc = ()=>{
+        setLoading(true)
+        return signInWithPopup(auth, googleProvider)
+    }
+    //signin user with github
+    const signinWithGithubFunc = ()=>{
+        setLoading(true)
+        return signInWithPopup(auth, githubProvider)
+    }
+
     // logout func
     const logout = () => {
         setLoading(true)
@@ -39,8 +52,6 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currUser => {
             if (currUser) {
-                setUser(currUser)
-                setLoading(false)
                 const option = {
                     method: 'POST',
                     headers: {
@@ -48,18 +59,18 @@ const AuthProvider = ({ children }) => {
                     },
                     body: JSON.stringify({ email: currUser.email })
                 }
-                fetch('http://localhost:8000/jwt', option)
+                fetch('https://car-doctor-server-iota-woad.vercel.app/jwt', option)
                     .then(res => res.json())
                     .then(data => {
                         localStorage.setItem('car-doctor-jwt', data.token)
-                        // setUser(currUser)
-                        // setLoading(false)
+                        setUser(currUser)
+                        setLoading(false)
                     })
                     .catch(e => console.log(e.message))
             } else {
                 localStorage.removeItem('car-doctor-jwt')
-                // setUser(currUser)
-                // setLoading(false)
+                setUser(currUser)
+                setLoading(false)
             }
         })
         return () => {
@@ -76,6 +87,8 @@ const AuthProvider = ({ children }) => {
         createUserWithEmailPassFunc,
         updateProfileFunc,
         signingUserWithEmailPassFunc,
+        signinWithGoogleFunc,
+        signinWithGithubFunc,
         logout
     }
     return (

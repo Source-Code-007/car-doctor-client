@@ -11,14 +11,14 @@ const ServicesDetails = () => {
     const [allServices, setAllServices] = useState([])
 
     useEffect(() => {
-        fetch(`http://localhost:8000/services/${id}`)
+        fetch(`https://car-doctor-server-iota-woad.vercel.app/services/${id}`)
             .then(res => res.json())
             .then(data => setService(data))
             .catch(e => console.log(e.message))
     }, [id])
 
     useEffect(() => {
-        fetch(`http://localhost:8000/services`)
+        fetch(`https://car-doctor-server-iota-woad.vercel.app/services`)
             .then(res => res.json())
             .then(data => setAllServices(data))
             .catch(e => console.log(e.message))

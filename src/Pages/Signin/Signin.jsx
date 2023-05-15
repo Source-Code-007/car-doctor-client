@@ -1,8 +1,8 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import signinImg from '../../assets/images/login/login.svg'
-import { FaFacebook, FaGithub, FaGoogle } from 'react-icons/fa';
 import { useContext, useState } from 'react';
 import { authContext } from '../../Provider/AuthProvider';
+import SocialMediaSignin from '../../Shared/SocialMediaSignin';
 
 const Signin = () => {
     const { setUser, setLoading, signingUserWithEmailPassFunc, } = useContext(authContext)
@@ -81,11 +81,7 @@ const Signin = () => {
                             </div>
                             <div className='text-center my-5 space-y-3'>
                                 <p className='text-xl'>or signin with</p>
-                                <ul className='flex gap-3 justify-center'>
-                                    <li><Link><FaFacebook></FaFacebook></Link></li>
-                                    <li><Link><FaGithub></FaGithub></Link></li>
-                                    <li><Link><FaGoogle></FaGoogle></Link></li>
-                                </ul>
+                               <SocialMediaSignin></SocialMediaSignin>
                             </div>
                             <p>Do not have an account? <Link className='text-green-500' to={'/signup'}>Signup</Link></p>
                         </div>

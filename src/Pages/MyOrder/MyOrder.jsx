@@ -17,7 +17,7 @@ const MyOrder = () => {
     // console.log(localStorage.getItem('car-doctor-jwt'))
     useEffect(() => {
         if (user?.email) {
-            fetch(`http://localhost:8000/booking?email=${user?.email}`, {
+            fetch(`https://car-doctor-server-iota-woad.vercel.app/booking?email=${user?.email}`, {
                 headers: {
                     authorization: localStorage.getItem('car-doctor-jwt')
                 }
@@ -42,7 +42,7 @@ const MyOrder = () => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:8000/booking/${id}`, { method: 'DELETE', })
+                fetch(`https://car-doctor-server-iota-woad.vercel.app/booking/${id}`, { method: 'DELETE', })
                     .then(res => res.json())
                     .then(data => {
                         if (data.deletedCount) {
@@ -63,7 +63,7 @@ const MyOrder = () => {
 
     // confirm func
     const confirmFunc = (id) => {
-        fetch(`http://localhost:8000/booking/${id}`, {
+        fetch(`https://car-doctor-server-iota-woad.vercel.app/booking/${id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json',

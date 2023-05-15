@@ -24,7 +24,7 @@ const Checkout = () => {
         const email = user?.email
         const order = { customerName: `${firstName} ${lastName}`, serviceId: _id, phone, date, message, email, img, price, title}
 
-        fetch('http://localhost:8000/booking', {
+        fetch('https://car-doctor-server-iota-woad.vercel.app/booking', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

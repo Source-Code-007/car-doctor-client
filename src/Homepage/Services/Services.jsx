@@ -4,7 +4,7 @@ import Service from "./Service";
 const Services = () => {
     const [services, setServices] = useState([])
     useEffect(() => {
-        fetch('http://localhost:8000/services')
+        fetch('https://car-doctor-server-iota-woad.vercel.app/services')
             .then(res => res.json())
             .then(data => setServices(data))
             .catch(e => console.log(e.message))

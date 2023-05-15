@@ -30,7 +30,7 @@ export const router = createBrowserRouter([
             {
                 path: `/checkout/:id`,
                 element: <Checkout></Checkout>,
-                loader: ({params}) => fetch(`http://localhost:8000/services/${params.id}`)
+                loader: ({params}) => fetch(`https://car-doctor-server-iota-woad.vercel.app/services/${params.id}`)
             },
             {
                 path: `/my-order`,
