@@ -8,8 +8,8 @@ const Services = () => {
     const searchInp = useRef()
 
     useEffect(() => {
-        // fetch(`https://car-doctor-server-iota-woad.vercel.app/services?sort=${priceSorting}&search=${searchInp}`)
-        fetch(`http://localhost:8000/services?sort=${priceSorting}&search=${searchVal}`)
+        fetch(`https://car-doctor-server-iota-woad.vercel.app/services?sort=${priceSorting}&search=${searchVal}`)
+        // fetch(`http://localhost:8000/services?sort=${priceSorting}&search=${searchVal}`)
             .then(res => res.json())
             .then(data => {
                 console.log(data);
