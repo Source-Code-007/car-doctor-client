@@ -9,10 +9,8 @@ const Services = () => {
 
     useEffect(() => {
         fetch(`https://car-doctor-server-iota-woad.vercel.app/services?sort=${priceSorting}&search=${searchVal}`)
-        // fetch(`http://localhost:8000/services?sort=${priceSorting}&search=${searchVal}`)
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 setServices(data)
             })
             .catch(e => console.log(e.message))
@@ -30,28 +28,31 @@ const Services = () => {
                 <div className="form-control">
                     <div className="input-group justify-center">
                         <input ref={searchInp} type="text" placeholder="Search…" className="input input-bordered" />
-                        <button onClick={()=>setSearchVal(searchInp.current.value)} className="btn btn-square">
+                        <button onClick={() => setSearchVal(searchInp.current.value)} className="btn btn-square">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                         </button>
                     </div>
                 </div>
-                <select onChange={(e)=> setPriceSorting(e.target.value)} defaultValue='default' className="select select-error !mt-5 flex focus:outline-none mx-auto">
+                <select onChange={(e) => setPriceSorting(e.target.value)} defaultValue='default' className="select select-error !mt-5 flex focus:outline-none mx-auto">
                     <option disabled value='default'>Sort by price</option>
                     <option value='highToLow'>High to Low</option>
                     <option value='lowToHigh'>Low to High</option>
                 </select>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
-                {
-                    services.map(service => {
-                        return <Service
-                            key={service._id}
-                            service={service}
-                        ></Service>
-                    })
-                }
-            </div>
+            {
+                !services.length ? <div className="min-h-[40vh] flex justify-center items-center"><h2 className="font-bold rounded text-4xl bg-emerald-200 p-5">No data found</h2></div> :
+                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+                        {
+                            services.map(service => {
+                                return <Service
+                                    key={service._id}
+                                    service={service}
+                                ></Service>
+                            })
+                        }
+                    </div>
+            }
         </section>
     );
 };
